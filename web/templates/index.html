@@ -9,70 +9,68 @@
   <script type="text/javascript">
     var ws = new WebSocket("ws://127.0.0.1:8000/echo");
     ws.onmessage = function(e) {
-    $("#view").append($('<p>'+e.data+'</p>'));
+    //ws.addEventlistner('onmessage', function(e) {
+	
+	//parse message
+	var data = JSON.parse(e.data);
+	var name = data.name;
+	var message = data.message;
+
+	//メッセージ表示
+	if (name == 'machine'){
+	addmsg_machine(message)
+	}
+	else if (name == 'guest'){
+	addmsg_guest(message)
+	}
+	//})
 };
 
-ws.addEventlistner('onmessage', function(e) {
-	//parse message
-	addmsg(e.data)
-
-})
-
-function addmsg(msg) {
+function addmsg_machine(msg) {
 	// body...
 
-let message = `
-	<div class="kaiwa">
-	 <figure class="kaiwa-img-left">
-	   <img src="{{ url_for('static', filename='img/love.jpg') }}" alt="no-img2″>
-	 <figcaption class="kaiwa-img-description">Love
-	 </figcaption>
-	 </figure>
-	 <div class="kaiwa-text-right">
-	   <p class="kaiwa-text">
-	   	${msg }
-	   </p>
-	 </div>
-	</div>`
+	let message = `
+		<div class="kaiwa">
+		 <figure class="kaiwa-img-left">
+		   <img src="{{ url_for('static', filename='img/love.jpg') }}" alt="no-img2″>
+		 <figcaption class="kaiwa-img-description">Love
+		 </figcaption>
+		 </figure>
+		 <div class="kaiwa-text-right">
+		   <p class="kaiwa-text">
+		   	${msg }
+		   </p>
+		 </div>
+		</div>`
 
-	$(body).append( message)
-}
+	$('body').append( message)
+	}
+
+function addmsg_guest(msg) {
+	// body...
+
+	let message = `
+		<div class="kaiwa">
+		 <figure class="kaiwa-img-right">
+		   <img src="{{ url_for('static', filename='img/guest.jpg') }}" alt="no-img2″>
+		 <figcaption class="kaiwa-img-description">Guest
+		 </figcaption>
+		 </figure>
+		 <div class="kaiwa-text-left">
+		   <p class="kaiwa-text">
+		   	${msg }
+		   </p>
+		 </div>
+		</div>`
+
+	$('body').append( message)
+	}
+
 </script>
 </head>
 
 <body>
   <h1>受付システム　Lovie Reception</h1>
-
-	<div class="kaiwa">
-	 <figure class="kaiwa-img-left">
-	   <img src="{{ url_for('static', filename='img/love.jpg') }}" alt="no-img2″>
-	 <figcaption class="kaiwa-img-description">Love
-	 </figcaption>
-	 </figure>
-	 <div class="kaiwa-text-right">
-	   <p class="kaiwa-text">
-	   	カラビナテクノロジーへようこそ！どなたとのご約束ですか？
-	   </p>
-	 </div>
-	</div>
-
-	<div class="kaiwa"">
-	 <figure class="kaiwa-img-right">
-	   <img src="{{ url_for('static', filename='img/guest.jpg') }}" alt="no-img2″>
-	 <figcaption class="kaiwa-img-description">
-	Guest
-	 </figcaption>
-	 </figure>
-	 <div class="kaiwa-text-left">
-	   <p class="kaiwa-text">
-	<div id="view"></div>
-	   </p>
-	 </div>
-	</div>
-
-
-  <h3>Messages</h3>
-  <div id="view"></div>
 
 </body>
 </html>
