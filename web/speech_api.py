@@ -4,7 +4,7 @@ import urllib
 
 apikey = "a5c8f4dce8d74cec9b58fe0bb03e4f67"
 
-def recognize_speech_from_wav( filepath="app/command.wav" ):
+def recognize_speech_from_wav( filepath="output.wav" ):
 
     with open(filepath, 'rb') as infile:
         raw_data = infile.read()
