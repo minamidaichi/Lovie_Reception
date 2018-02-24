@@ -24,12 +24,19 @@ def echo():
     if request.environ.get('wsgi.websocket'):
         web_s = request.environ['wsgi.websocket']
         while True:
+            #メインプログラムからの通信
             data = app_s.recv(1024)
             print "recive:"+data
             name = data.split(":")[0]
             msg = data.split(":")[1]
             send_data = {"name":name,"message":msg}
             web_s.send(json.dumps(send_data))
+
+            #webからの通信
+            #result = web_s.receive()##unicode文字列が入る
+            #print result
+            #app_s.send(result)
+                
     return
 
 if __name__ == '__main__':

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+
+  <title>受付システム　Lovie Reception</title>
+  <link rel="stylesheet" href="common.css" type="text/css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    var ws = new WebSocket("ws://localhost:8000/echo");
+    ws.onmessage = function(e) {
+    $("#view").append($('<p>'+e.data+'</p>'));
+};
+</script>
+</head>
+<body>
+  <h1>受付システム　Lovie Reception</h1>
+	<div class="kaiwa">
+	 <figure class="kaiwa-img-left">
+	   <img src="love.jpg" alt="no-img2″>
+	 <figcaption class="kaiwa-img-description">Love
+	 </figcaption>
+	 </figure>
+	 <div class="kaiwa-text-right">
+	   <p class="kaiwa-text">
+	   	カラビナテクノロジーへようこそ！どなたとのご約束ですか？
+	   </p>
+	 </div>
+	</div>
+
+	<div class="kaiwa"">
+	 <figure class="kaiwa-img-right">
+	   <img src="guest.jpg" alt="no-img2″>
+	 <figcaption class="kaiwa-img-description">
+	Guest
+	 </figcaption>
+	 </figure>
+	 <div class="kaiwa-text-left">
+	   <p class="kaiwa-text">
+	こんにちわ
+	   </p>
+	 </div>
+	</div>
+  <h3>Messages</h3>
+  <div id="view"></div>
+
+</body>
+</html>
